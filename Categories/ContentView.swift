@@ -10,15 +10,30 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            CustomText(text:"Categories")
+                .font(.title).bold()
+                .foregroundColor(.black)
         }
+        Image(systemName: "checkmark.circle.fill")
+            .foregroundStyle(.green)
+            .foregroundStyle(.tint)
+            .position(x: 75, y: 100)
+        .padding()
+        
+        Image(systemName: "x.circle.fill")
+            .foregroundStyle(.red)
+            .foregroundStyle(.tint)
+            .position(x: 300, y: -260)
         .padding()
     }
 }
 
 #Preview {
     ContentView()
+}
+struct CustomText: View {
+    let text: String
+    var body: some View {
+        Text(text).font(.custom("Marker Felt", size: 30))
+    }
 }
