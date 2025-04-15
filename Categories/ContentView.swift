@@ -7,24 +7,16 @@
 
 import SwiftUI
 
+// here is an example comment
 struct ContentView: View {
     var body: some View {
         VStack {
             CustomText(text:"Categories")
                 .font(.title).bold()
                 .foregroundColor(.black)
+            Spacer()
         }
-        Image(systemName: "checkmark.circle.fill")
-            .foregroundStyle(.green)
-            .foregroundStyle(.tint)
-            .position(x: 75, y: 100)
-        .padding()
-        
-        Image(systemName: "x.circle.fill")
-            .foregroundStyle(.red)
-            .foregroundStyle(.tint)
-            .position(x: 300, y: -260)
-        .padding()
+       
     }
 }
 
@@ -34,6 +26,6 @@ struct ContentView: View {
 struct CustomText: View {
     let text: String
     var body: some View {
-        Text(text).font(.custom("Marker Felt", size: 30))
+        Text(text).font(.custom("Marker Felt", size: 55))
     }
 }
