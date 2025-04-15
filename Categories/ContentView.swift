@@ -10,20 +10,27 @@ import SwiftUI
 // here is an example comment
 struct ContentView: View {
     var body: some View {
-        VStack {
-            CustomText(text:"Categories")
-                .font(.title).bold()
-                .foregroundColor(.black)
-            Spacer()
+        NavigationView {
+            VStack {
+                title(text:"Categories")
+                    .font(.title).bold()
+                    .foregroundColor(.black)
+                Spacer()
+                NavigationLink("How to Play", destination: InstructionsView())
+                    .font(Font.custom("Marker Felt", size: 31))
+                    .padding()
+            }
         }
-       
     }
 }
+
+    
+
 
 #Preview {
     ContentView()
 }
-struct CustomText: View {
+struct title: View {
     let text: String
     var body: some View {
         Text(text).font(.custom("Marker Felt", size: 55))
