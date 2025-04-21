@@ -11,19 +11,30 @@ struct InstructionsView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.gray.opacity(1).ignoresSafeArea()
-                VStack {
-                    VStack(alignment: .leading)  {
-                        
-                        about(text: " 1.) First Click Play to Start")
-                        Spacer()
-                        about(text: "2.) Then Choose What Gamemode You Want To Play.")
-                        Spacer()
-                        about(text: "3.) Start Playing")
-                            .padding()
-                    }
+                Image("contentbackground")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .mask(
+                        RadialGradient(
+                            gradient: Gradient(colors: [.white, .clear]),
+                            center: .center,
+                            startRadius: 100,
+                            endRadius: 490
+                        )
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    )
+                    .ignoresSafeArea()
+                
+                VStack  {
+                    
+                    about(text: " 1.) First Click Play to Start")
                     Spacer()
+                    about(text: "2.) Then Choose What Gamemode You Want To Play.")
+                    Spacer()
+                    about(text: "3.) Start Playing")
+                        .padding()
                 }
+                Spacer()
             }
         }
     }

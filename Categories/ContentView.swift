@@ -11,14 +11,29 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationView {
-            VStack {
-                title(text:"Categories")
-                    .font(.title).bold()
-                    .foregroundColor(.black)
-                Spacer()
-                NavigationLink("How to Play", destination: InstructionsView())
-                    .font(Font.custom("Marker Felt", size: 31))
-                    .padding()
+            ZStack {
+                Image("contentbackground")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .mask(
+                        RadialGradient(
+                            gradient: Gradient(colors: [.white, .clear]),
+                            center: .center,
+                            startRadius: 100,
+                            endRadius: 490
+                        )
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    )
+                    .ignoresSafeArea()
+                  VStack {
+                    title(text:"Categories")
+                        .font(.title).bold()
+                        .foregroundColor(.black)
+                    Spacer()
+                    NavigationLink("How to Play", destination: InstructionsView())
+                        .font(Font.custom("Marker Felt", size: 31))
+                        .padding()
+                }
             }
         }
     }
@@ -36,3 +51,4 @@ struct title: View {
         Text(text).font(.custom("Marker Felt", size: 55))
     }
 }
+                    
