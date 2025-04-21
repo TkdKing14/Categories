@@ -16,16 +16,9 @@ struct ContentView: View {
                 .foregroundColor(.black)
             Spacer()
         }
-       
     }
 }
 
 #Preview {
     ContentView()
-}
-struct CustomText: View {
-    let text: String
-    var body: some View {
-        Text(text).font(.custom("Marker Felt", size: 55))
-    }
 }
