@@ -1,14 +1,13 @@
 //
-//  ContentView.swift
+//  InstructionsView.swift
 //  Categories
 //
-//  Created by Carson Payne on 4/1/25.
+//  Created by Rohan Patel on 4/15/25.
 //
 
 import SwiftUI
 
-// here is an example comment
-struct ContentView: View {
+struct InstructionsView: View {
     var body: some View {
         NavigationView {
             ZStack {
@@ -25,30 +24,29 @@ struct ContentView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     )
                     .ignoresSafeArea()
-                  VStack {
-                    title(text:"Categories")
-                        .font(.title).bold()
-                        .foregroundColor(.black)
+                
+                VStack  {
+                    
+                    about(text: " 1.) First Click Play to Start")
                     Spacer()
-                    NavigationLink("How to Play", destination: InstructionsView())
-                        .font(Font.custom("Marker Felt", size: 31))
+                    about(text: "2.) Then Choose What Gamemode You")
+                    about(text: "To Play.")
+                    Spacer()
+                    about(text: "3.) Start Playing")
                         .padding()
                 }
+                Spacer()
             }
         }
     }
 }
 
-    
-
-
 #Preview {
-    ContentView()
+    InstructionsView()
 }
-struct title: View {
+struct about: View {
     let text: String
     var body: some View {
-        Text(text).font(.custom("Marker Felt", size: 55))
+        Text(text).font(.custom("Marker Felt", size: 25))
     }
 }
-                    
