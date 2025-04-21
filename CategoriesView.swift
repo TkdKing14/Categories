@@ -14,7 +14,7 @@ struct CategoriesView: View {
             List {
                 ForEach(categories, id: \.self) { categories in
                     NavigationLink(destination: Text(categories)) {
-                        Image(systemName: "airplane")
+                        Image(systemName: "gamecontroller.fill")
                         Text(categories)
                     } .padding()
                 }
@@ -23,11 +23,9 @@ struct CategoriesView: View {
         }
     }
 }
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+
+#Preview {
+    CategoriesView()
 }
-        
-        
+
         
