@@ -29,7 +29,8 @@ struct InstructionsView: View {
                     
                     about(text: " 1.) First Click Play to Start")
                     Spacer()
-                    about(text: "2.) Then Choose What Gamemode You Want To Play.")
+                    about(text: "2.) Then Choose What Gamemode You")
+                    about(text: "To Play.")
                     Spacer()
                     about(text: "3.) Start Playing")
                         .padding()
