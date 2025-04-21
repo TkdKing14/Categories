@@ -30,9 +30,19 @@ struct ContentView: View {
                         .font(.title).bold()
                         .foregroundColor(.black)
                     Spacer()
-                    NavigationLink("How to Play", destination: InstructionsView())
-                        .font(Font.custom("Marker Felt", size: 31))
-                        .padding()
+                      NavigationLink(destination: CategoriesView()) {
+                          Text("Play")
+                              .font(Font.custom("Marker Felt", size: 43))
+                              .foregroundColor(.black)
+                              .padding()
+                      }
+                      Spacer()
+                      NavigationLink(destination: InstructionsView()) {
+                          Text("About Us")
+                              .font(Font.custom("Marker Felt", size: 43))
+                              .foregroundColor(.black)
+                              .padding()
+                      }
                 }
             }
         }
