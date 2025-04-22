@@ -29,7 +29,7 @@ struct SelectionView: View {
 }
 
 #Preview {
-    ContentView()
+    SelectionView()
 }
 struct CustomText: View {
     let text: String

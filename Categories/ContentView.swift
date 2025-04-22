@@ -34,7 +34,6 @@ struct ContentView: View {
                           Text("Play")
                               .font(Font.custom("Marker Felt", size: 53))
                               .foregroundColor(.black)
-                              .padding()
                       }
                       NavigationLink(destination: InstructionsView()) {
                           Text("About Us")
@@ -47,10 +46,6 @@ struct ContentView: View {
         }
     }
 }
-
-    
-
-
 #Preview {
     ContentView()
 }
