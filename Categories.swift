@@ -13,3 +13,5 @@ let categoriesList = [
     "Cities",
     "Cats",
     ]
+
+

@@ -32,12 +32,12 @@ struct ContentView: View {
                     Spacer()
                       NavigationLink(destination: CategoriesView()) {
                           Text("Play")
-                              .font(Font.custom("Marker Felt", size: 43))
+                              .font(Font.custom("Marker Felt", size: 53))
                               .foregroundColor(.black)
                       }
                       NavigationLink(destination: InstructionsView()) {
                           Text("About Us")
-                              .font(Font.custom("Marker Felt", size: 43))
+                              .font(Font.custom("Marker Felt", size: 53))
                               .foregroundColor(.black)
                               .padding()
                       }
@@ -52,7 +52,7 @@ struct ContentView: View {
 struct title: View {
     let text: String
     var body: some View {
-        Text(text).font(.custom("Marker Felt", size: 55))
+        Text(text).font(.custom("Marker Felt", size: 65))
     }
 }
                     
