@@ -14,17 +14,29 @@ struct SelectionView: View {
                 .font(.title).bold()
                 .foregroundColor(.black)
         }
-        Image(systemName: "checkmark.circle.fill")
-            .foregroundStyle(.green)
-            .foregroundStyle(.tint)
-            .position(x: 75, y: 100)
+        Button(action: {
+            // put action here i think
+            print("Checkmark button tapped")
+        }) {
+            Image(systemName: "checkmark.circle.fill")
+                .foregroundStyle(.green)
+                .font(.system(size: 50))
+                .padding()
+        }
+        .position(x: 75, y: 448)
+
         .padding()
-        
-        Image(systemName: "x.circle.fill")
-            .foregroundStyle(.red)
-            .foregroundStyle(.tint)
-            .position(x: 300, y: -260)
-        .padding()
+        Button(action: {
+            // put action here i think
+            print("X button tapped")
+        }) {
+            Image(systemName: "x.circle.fill")
+                .foregroundStyle(.red)
+                .font(.system(size: 50))
+                .padding()
+        }
+        .position(x: 300, y: 100)
+
     }
 }
 
