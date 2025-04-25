@@ -10,7 +10,6 @@ import SwiftUI
 struct CatView: View {
     @State private var photos = [Photo]()
     @State private var showingAlert = false
-
     var body: some View {
         NavigationView {
             List(photos, id: \.id) { photo in
@@ -28,6 +27,7 @@ struct CatView: View {
                         .font(.caption)
                         .foregroundColor(.gray)
                 }
+                
                 .padding(.vertical)
             }
             .navigationTitle("Random Cat Pics")
