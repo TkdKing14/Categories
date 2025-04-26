@@ -1,13 +1,13 @@
 //
-//  SelectionView.swift
+//  template.swift
 //  Categories
 //
-//  Created by Carson Payne on 4/15/25.
+//  Created by Rohan Patel on 4/25/25.
 //
 
 import SwiftUI
 
-struct SelectionView: View {
+struct template: View {
     var body: some View {
         VStack {
             CustomText(text:"Categories")
@@ -36,17 +36,17 @@ struct SelectionView: View {
                 .padding()
         }
         .position(x: 300, y: 100)
-
     }
 }
 
 #Preview {
-    SelectionView()
+    template()
 }
+
+
 struct CustomText: View {
     let text: String
     var body: some View {
         Text(text).font(.custom("Marker Felt", size: 30))
     }
 }
-

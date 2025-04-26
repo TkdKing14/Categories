@@ -10,7 +10,6 @@ import SwiftUI
 struct CatView: View {
     @State private var photos = [Photo]()
     @State private var showingAlert = false
-
     var body: some View {
         NavigationView {
             VStack {
