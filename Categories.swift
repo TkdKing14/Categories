@@ -12,6 +12,7 @@ let categoriesList = [
     "Months",
     "Cities",
     "Cats",
+    "Dogs",
     ]
 
 

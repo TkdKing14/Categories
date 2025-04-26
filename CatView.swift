@@ -13,33 +13,54 @@ struct CatView: View {
 
     var body: some View {
         NavigationView {
-            List(photos, id: \.id) { photo in
-                VStack {
-                    AsyncImage(url: URL(string: photo.photourl)) { image in
-                        image
-                            .resizable()
-                            .scaledToFit()
-                    } placeholder: {
-                        ProgressView()
+            VStack {
+                List(photos, id: \.id) { photo in
+                    VStack {
+                        AsyncImage(url: URL(string: photo.photourl)) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        .frame(maxHeight: 300)
                     }
-                    .frame(maxHeight: 300)
+                    .padding(.vertical)
+                }
+                .listStyle(PlainListStyle())
 
-                    Text("ID: \(photo.api_id)")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                }
-                .padding(.vertical)
-            }
-            .navigationTitle("Random Cat Pics")
-            .toolbar {
-                Button {
-                    Task {
-                        await loadData()
+                HStack {
+                    Button {
+                        Task {
+                            await loadData()
+                        }
+                    } label: {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundStyle(.green)
+                            .font(.system(size: 75))
+                            .position(x:125, y:10)
                     }
-                } label: {
-                    Image(systemName: "arrow.clockwise")
+
+                    Spacer()
+
+                    Button {
+                        Task {
+                            await loadData()
+                        }
+                    } label: {
+                        Image(systemName: "x.circle.fill")
+                            .foregroundStyle(.red)
+                            .font(.system(size: 75))
+                            .position(x:150, y:10)
+                    }
+                    Image("Paws")
+                        .resizable()
+                        .frame(width: 500, height: 175)
+                        .position(x:1, y:250)
                 }
+                .padding()
             }
+            .navigationTitle("Cats!")
         }
         .task {
             await loadData()

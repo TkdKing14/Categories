@@ -25,22 +25,23 @@ struct ContentView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     )
                     .ignoresSafeArea()
-                  VStack {
+                VStack {
                     title(text:"Categories")
                         .font(.title).bold()
                         .foregroundColor(.black)
                     Spacer()
-                      NavigationLink(destination: CategoriesView()) {
-                          Text("Play")
-                              .font(Font.custom("Marker Felt", size: 53))
-                              .foregroundColor(.black)
-                      }
-                      NavigationLink(destination: InstructionsView()) {
-                          Text("About Us")
-                              .font(Font.custom("Marker Felt", size: 53))
-                              .foregroundColor(.black)
-                              .padding()
-                      }
+                    NavigationLink(destination: CategoriesView()) {
+                        Text("Play")
+
+                            .font(Font.custom("Marker Felt", size: 53))
+                            .foregroundColor(.black)
+                    }
+                    NavigationLink(destination: InstructionsView()) {
+                        Text("About Us")
+                            .font(Font.custom("Marker Felt", size: 53))
+                            .foregroundColor(.black)
+                            .padding()
+                    }
                 }
             }
         }
@@ -55,4 +56,4 @@ struct title: View {
         Text(text).font(.custom("Marker Felt", size: 65))
     }
 }
-                    
+
