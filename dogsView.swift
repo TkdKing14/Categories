@@ -16,45 +16,51 @@ struct dogsView: View {
     @State private var isLoading = false
 
     var body: some View {
-        VStack(spacing: 20) {
-            Text("🐶 Random Dog")
+        VStack {
+            Text("Dogs")
                 .font(.largeTitle)
-
+                .padding(.top)
+            Spacer()
             if let imageUrl, let url = URL(string: imageUrl) {
                 AsyncImage(url: url) { phase in
                     switch phase {
-                    case.empty: ProgressView()
-                    case.success(let image): image.resizable().scaledToFit().frame(maxHeight: 300).cornerRadius(12)
-                    case.failure: Text("Failed to load image")
-                    @unknown default: EmptyView()
+                    case .empty:
+                        ProgressView()
+                    case .success(let image): image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxHeight: 300)
+                            .cornerRadius(12)
+                            .padding(.top, 30)
+                    case .failure:
+                        Text("Failed to load image")
+                    @unknown default:
+                        EmptyView()
                     }
                 }
             } else if isLoading {
                 ProgressView()
             }
-            Button(action: {
-                fetchDogImage()
-                print("Checkmark button tapped")
-            }) {
-                Image(systemName: "checkmark.circle.fill")
-                    .foregroundStyle(.green)
-                    .font(.system(size: 50))
-                    .padding()
+            Spacer()
+            HStack(spacing: 80) {
+                Button(action: {
+                    fetchDogImage()
+                    print("Checkmark button tapped")
+                }) {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(.green)
+                        .font(.system(size: 75))
+                }
+                Button(action: {
+                    fetchDogImage()
+                    print("X button tapped")
+                }) {
+                    Image(systemName: "x.circle.fill")
+                        .foregroundStyle(.red)
+                        .font(.system(size: 75))
+                }
             }
-            .position(x: 300, y: 320)
-            .padding()
-            Button(action: {
-                fetchDogImage()
-                print("X button tapped")
-            }) {
-                Image(systemName: "x.circle.fill")
-                    .foregroundStyle(.red)
-                    .font(.system(size: 50))
-                    .padding()
-            }
-            .position(x: 300, y: 100)
-            
-           
+            .padding(.bottom, 30)
         }
         .padding()
         .onAppear(perform: fetchDogImage)
@@ -63,7 +69,6 @@ struct dogsView: View {
     func fetchDogImage() {
         isLoading = true
         guard let url = URL(string: "https://dog.ceo/api/breeds/image/random") else { return }
-
         Task {
             do {
                 let (data, _) = try await URLSession.shared.data(from: url)

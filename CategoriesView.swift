@@ -29,6 +29,9 @@ struct CategoriesView: View {
         if category == "Cats" {
             CatView()
         }
+        else if category == "Dogs" {
+            dogsView()
+        }
     }
     func categoryIcon(for category: String) -> some View {
            let iconName: String
