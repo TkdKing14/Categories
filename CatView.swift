@@ -10,56 +10,87 @@ import SwiftUI
 struct CatView: View {
     @State private var photos = [Photo]()
     @State private var showingAlert = false
-    var body: some View {
-        NavigationView {
-            VStack {
-                List(photos, id: \.id) { photo in
-                    VStack {
-                        AsyncImage(url: URL(string: photo.photourl)) { image in
-                            image
-                                .resizable()
-                                .scaledToFit()
-                        } placeholder: {
-                            ProgressView()
-                        }
-                        .frame(maxHeight: 300)
-                    }
-                    .padding(.vertical)
-                }
-                .listStyle(PlainListStyle())
+    @State private var greenButtonClickCount = 0
+    @State private var redButtonClickCount = 0
 
-                HStack {
+    // Computed property to show user preference message
+    var preferenceMessage: String {
+        if greenButtonClickCount > redButtonClickCount {
+            return "You like cats 😃"
+        } else if redButtonClickCount > greenButtonClickCount {
+            return "Not a fan of cats?😢"
+        } else if greenButtonClickCount == 0 && redButtonClickCount == 0 {
+            return ""
+        } else {
+            return "🤔"
+        }
+    }
+
+    var body: some View {
+        VStack {
+            Text("Cats")
+                .font(.largeTitle)
+                .padding(.top)
+
+            List(photos, id: \.id) { photo in
+                VStack {
+                    AsyncImage(url: URL(string: photo.photourl)) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .cornerRadius(12)
+                            .padding(.vertical, 20)
+                    } placeholder: {
+                        ProgressView()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding()
+                    }
+                }
+            }
+            .listStyle(PlainListStyle())
+
+            HStack(spacing: 80) {
+                VStack {
                     Button {
                         Task {
                             await loadData()
                         }
+                        greenButtonClickCount += 1
                     } label: {
                         Image(systemName: "checkmark.circle.fill")
                             .foregroundStyle(.green)
                             .font(.system(size: 75))
-                            .position(x:125, y:10)
                     }
+                    Text("\(greenButtonClickCount)")
+                        .font(.title2)
+                        .foregroundColor(.green)
+                }
 
-                    Spacer()
-
+                VStack {
                     Button {
                         Task {
                             await loadData()
                         }
+                        redButtonClickCount += 1
                     } label: {
                         Image(systemName: "x.circle.fill")
                             .foregroundStyle(.red)
                             .font(.system(size: 75))
-                            .position(x:150, y:10)
                     }
-                    Image("Paws")
-                        .resizable()
-                        .frame(width: 500, height: 175)
-                        .position(x:1, y:250)
+                    Text("\(redButtonClickCount)")
+                        .font(.title2)
+                        .foregroundColor(.red)
                 }
-                .padding()
             }
-            .navigationTitle("Cats!")
+            .padding(.bottom, 10)
+
+            // Preference message based on click comparison
+            if !preferenceMessage.isEmpty {
+                Text(preferenceMessage)
+                    .font(.headline)
+                    .padding(.top, 10)
+                    .transition(.opacity)
+            }
         }
         .task {
             await loadData()
@@ -71,6 +102,7 @@ struct CatView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
+        .animation(.easeInOut, value: preferenceMessage)
     }
 
     func loadData() async {
