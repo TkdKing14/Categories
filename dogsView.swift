@@ -14,24 +14,41 @@ struct DogImageResponse: Codable {
 struct dogsView: View {
     @State private var imageUrl: String?
     @State private var isLoading = false
+    @State private var greenButtonClickCount = 0
+    @State private var redButtonClickCount = 0
+
+    // Computed property to show user preference message
+    var preferenceMessage: String {
+        if greenButtonClickCount > redButtonClickCount {
+            return "You like dogs 😃"
+        } else if redButtonClickCount > greenButtonClickCount {
+            return "Not a fan of dogs? 😢"
+        } else if greenButtonClickCount == 0 && redButtonClickCount == 0 {
+            return ""
+        } else {
+            return "🤔"
+        }
+    }
 
     var body: some View {
         VStack {
             Text("Dogs")
                 .font(.largeTitle)
                 .padding(.top)
+
             Spacer()
+
             if let imageUrl, let url = URL(string: imageUrl) {
                 AsyncImage(url: url) { phase in
                     switch phase {
                     case .empty:
                         ProgressView()
-                    case .success(let image): image
+                    case .success(let image):
+                        image
                             .resizable()
                             .scaledToFit()
-                            .frame(maxHeight: 300)
                             .cornerRadius(12)
-                            .padding(.top, 30)
+                            .padding()
                     case .failure:
                         Text("Failed to load image")
                     @unknown default:
@@ -41,29 +58,52 @@ struct dogsView: View {
             } else if isLoading {
                 ProgressView()
             }
+
             Spacer()
+
+            // Buttons with counters below each
             HStack(spacing: 80) {
-                Button(action: {
-                    fetchDogImage()
-                    print("Checkmark button tapped")
-                }) {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundStyle(.green)
-                        .font(.system(size: 75))
+                VStack {
+                    Button {
+                        fetchDogImage()
+                        greenButtonClickCount += 1
+                    } label: {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundStyle(.green)
+                            .font(.system(size: 75))
+                    }
+                    Text("\(greenButtonClickCount)")
+                        .font(.title2)
+                        .foregroundColor(.green)
                 }
-                Button(action: {
-                    fetchDogImage()
-                    print("X button tapped")
-                }) {
-                    Image(systemName: "x.circle.fill")
-                        .foregroundStyle(.red)
-                        .font(.system(size: 75))
+
+                VStack {
+                    Button {
+                        fetchDogImage()
+                        redButtonClickCount += 1
+                    } label: {
+                        Image(systemName: "x.circle.fill")
+                            .foregroundStyle(.red)
+                            .font(.system(size: 75))
+                    }
+                    Text("\(redButtonClickCount)")
+                        .font(.title2)
+                        .foregroundColor(.red)
                 }
             }
-            .padding(.bottom, 30)
+            .padding(.bottom, 10)
+
+            // Preference message
+            if !preferenceMessage.isEmpty {
+                Text(preferenceMessage)
+                    .font(.headline)
+                    .padding(.top, 10)
+                    .transition(.opacity)
+            }
         }
         .padding()
         .onAppear(perform: fetchDogImage)
+        .animation(.easeInOut, value: preferenceMessage)
     }
 
     func fetchDogImage() {
