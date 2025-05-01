@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// here is an example comment
 struct ContentView: View {
     var body: some View {
         NavigationView {
