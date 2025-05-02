@@ -32,6 +32,9 @@ struct CategoriesView: View {
         else if category == "Dogs" {
             dogsView()
         }
+        else if category == "Food" {
+            FoodView()
+        }
     }
     func categoryIcon(for category: String) -> some View {
            let iconName: String
