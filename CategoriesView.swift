@@ -35,6 +35,9 @@ struct CategoriesView: View {
         else if category == "Food" {
             FoodView()
         }
+        else if category == "Pokemon" {
+            PokemonView()
+        }
     }
     func categoryIcon(for category: String) -> some View {
            let iconName: String
@@ -42,18 +45,18 @@ struct CategoriesView: View {
            switch category {
            case "Cats":
                iconName = "cat.fill"
-               iconColor = Color.gray
+               iconColor = Color.green
            case "Months":
                iconName = "calendar"
                iconColor = Color.green
            case "Food":
                iconName = "fork.knife"
                iconColor = Color.red
-           case "Cities":
-               iconName = "building"
-               iconColor = Color.blue
            case "Dogs":
                iconName = "dog.fill"
+               iconColor = Color.blue
+           case "Pokemon":
+               iconName = "bolt.fill"
                iconColor = Color.yellow
            default:
                iconName = "airplane"

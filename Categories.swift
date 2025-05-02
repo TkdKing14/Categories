@@ -9,9 +9,9 @@ import Foundation
 
 let categoriesList = [
     "Food",
-    "Cities",
     "Cats",
     "Dogs",
+    "Pokemon",
     ]
 
 
