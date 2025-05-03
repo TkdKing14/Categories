@@ -18,6 +18,7 @@ struct Sprites: Decodable {
 }
 
 struct PokemonView: View {
+    @ObservedObject var CategoryCounters: categoryCounters
     @State private var pokemonName: String = "Loading..."
     @State private var pokemonImageURL: String?
     @State private var greenButtonClickCount = 0
@@ -71,6 +72,7 @@ struct PokemonView: View {
                 VStack {
                     Button {
                         greenButtonClickCount += 1
+                        CategoryCounters.pokemonGreenCount += 1
                         fetchPokemon()
                     } label: {
                         Image(systemName: "checkmark.circle.fill")
@@ -85,6 +87,7 @@ struct PokemonView: View {
                 VStack {
                     Button {
                         redButtonClickCount += 1
+                        CategoryCounters.pokemonRedCount += 1
                         fetchPokemon()
                     } label: {
                         Image(systemName: "x.circle.fill")
@@ -145,5 +148,5 @@ struct PokemonView: View {
 }
 
 #Preview {
-    PokemonView()
+    PokemonView(CategoryCounters: categoryCounters())
 }

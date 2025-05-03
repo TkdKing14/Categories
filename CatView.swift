@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CatView: View {
+    @ObservedObject var CategoryCounters: categoryCounters
     @State private var photos = [Photo]()
     @State private var showingAlert = false
     @State private var greenButtonClickCount = 0
@@ -56,6 +57,7 @@ struct CatView: View {
                             await loadData()
                         }
                         greenButtonClickCount += 1
+                        CategoryCounters.catGreenCount += 1
                     } label: {
                         Image(systemName: "checkmark.circle.fill")
                             .foregroundStyle(.green)
@@ -72,6 +74,7 @@ struct CatView: View {
                             await loadData()
                         }
                         redButtonClickCount += 1
+                        CategoryCounters.catRedCount += 1
                     } label: {
                         Image(systemName: "x.circle.fill")
                             .foregroundStyle(.red)
@@ -122,7 +125,7 @@ struct CatView: View {
 }
 
 #Preview {
-    CatView()
+    CatView(CategoryCounters: categoryCounters())
 }
 
 struct Photo: Identifiable, Codable {

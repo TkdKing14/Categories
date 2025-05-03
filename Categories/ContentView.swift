@@ -29,7 +29,7 @@ struct ContentView: View {
                         .font(.title).bold()
                         .foregroundColor(.black)
                     Spacer()
-                    NavigationLink(destination: CategoriesView()) {
+                    NavigationLink(destination: CategoriesView(CategoryCounters: CategoryCounters)) {
                         Text("Play")
 
                             .font(Font.custom("Marker Felt", size: 53))

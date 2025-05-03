@@ -12,6 +12,7 @@ struct DogImageResponse: Codable {
 }
 
 struct dogsView: View {
+    @ObservedObject var CategoryCounters: categoryCounters
     @State private var imageUrl: String?
     @State private var isLoading = false
     @State private var greenButtonClickCount = 0
@@ -67,6 +68,7 @@ struct dogsView: View {
                     Button {
                         fetchDogImage()
                         greenButtonClickCount += 1
+                        CategoryCounters.dogGreenCount += 1
                     } label: {
                         Image(systemName: "checkmark.circle.fill")
                             .foregroundStyle(.green)
@@ -81,6 +83,7 @@ struct dogsView: View {
                     Button {
                         fetchDogImage()
                         redButtonClickCount += 1
+                        CategoryCounters.dogRedCount += 1
                     } label: {
                         Image(systemName: "x.circle.fill")
                             .foregroundStyle(.red)
@@ -123,5 +126,5 @@ struct dogsView: View {
 }
 
 #Preview {
-    dogsView()
+    dogsView(CategoryCounters: categoryCounters())
 }

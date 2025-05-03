@@ -18,6 +18,7 @@ struct MealDetail: Decodable {
 }
 
 struct FoodView: View {
+    @ObservedObject var CategoryCounters: categoryCounters
     @State private var mealImageUrl: String?
     @State private var mealName: String = "Loading..."
     @State private var greenButtonClickCount = 0
@@ -68,6 +69,7 @@ struct FoodView: View {
                 VStack {
                     Button {
                         greenButtonClickCount += 1
+                        CategoryCounters.foodGreenCount += 1
                         fetchMealData()
                     } label: {
                         Image(systemName: "checkmark.circle.fill")
@@ -82,6 +84,7 @@ struct FoodView: View {
                 VStack {
                     Button {
                         redButtonClickCount += 1
+                        CategoryCounters.foodRedCount += 1
                         fetchMealData()
                     } label: {
                         Image(systemName: "x.circle.fill")
@@ -149,6 +152,6 @@ struct FoodView: View {
 
 struct FoodView_Previews: PreviewProvider {
     static var previews: some View {
-        FoodView()
+        FoodView(CategoryCounters: categoryCounters())
     }
 }
