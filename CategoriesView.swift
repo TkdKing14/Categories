@@ -68,7 +68,7 @@ struct CategoriesView: View {
             FoodView(CategoryCounters: CategoryCounters)
         }
         else if category == "Pokemon" {
-            PokemonView(CategoryCounters: CategoryCounters)
+            PokemonView(categoryCounters: CategoryCounters)
         }
     }
     func categoryIcon(for category: String) -> some View {

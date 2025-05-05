@@ -17,14 +17,8 @@ struct Sprites: Decodable {
     let front_default: String?
 }
 
-// ObservableObject class for tracking category counts
-class CategoryCounters: ObservableObject {
-    @Published var pokemonGreenCount = 0
-    @Published var pokemonRedCount = 0
-}
-
 struct PokemonView: View {
-    @ObservedObject var categoryCounters: CategoryCounters
+    @ObservedObject var categoryCounters: categoryCounters
     @State private var pokemonName: String = "Loading..."
     @State private var pokemonImageURL: String?
     @State private var greenButtonClickCount = 0
@@ -157,5 +151,5 @@ struct PokemonView: View {
 }
 
 #Preview {
-    PokemonView(categoryCounters: CategoryCounters())
+    PokemonView(categoryCounters: categoryCounters())
 }
