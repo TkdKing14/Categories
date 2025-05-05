@@ -17,8 +17,14 @@ struct Sprites: Decodable {
     let front_default: String?
 }
 
+// ObservableObject class for tracking category counts
+class CategoryCounters: ObservableObject {
+    @Published var pokemonGreenCount = 0
+    @Published var pokemonRedCount = 0
+}
+
 struct PokemonView: View {
-    @ObservedObject var CategoryCounters: categoryCounters
+    @ObservedObject var categoryCounters: CategoryCounters
     @State private var pokemonName: String = "Loading..."
     @State private var pokemonImageURL: String?
     @State private var greenButtonClickCount = 0
@@ -28,7 +34,10 @@ struct PokemonView: View {
     // Random Pokémon ID between 1 and 898 (Gen 1–8)
     func randomPokemonURL() -> URL {
         let randomID = Int.random(in: 1...898)
-        return URL(string: "https://pokeapi.co/api/v2/pokemon/\(randomID)")!
+        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(randomID)") else {
+            fatalError("Invalid URL")
+        }
+        return url
     }
 
     var preferenceMessage: String {
@@ -72,7 +81,7 @@ struct PokemonView: View {
                 VStack {
                     Button {
                         greenButtonClickCount += 1
-                        CategoryCounters.pokemonGreenCount += 1
+                        categoryCounters.pokemonGreenCount += 1
                         fetchPokemon()
                     } label: {
                         Image(systemName: "checkmark.circle.fill")
@@ -87,7 +96,7 @@ struct PokemonView: View {
                 VStack {
                     Button {
                         redButtonClickCount += 1
-                        CategoryCounters.pokemonRedCount += 1
+                        categoryCounters.pokemonRedCount += 1
                         fetchPokemon()
                     } label: {
                         Image(systemName: "x.circle.fill")
@@ -148,5 +157,5 @@ struct PokemonView: View {
 }
 
 #Preview {
-    PokemonView(CategoryCounters: categoryCounters())
+    PokemonView(categoryCounters: CategoryCounters())
 }
