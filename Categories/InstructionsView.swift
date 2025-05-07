@@ -31,13 +31,11 @@ struct InstructionsView: View {
                     spacer(text: "")
                     spacer(text: "")
                     spacer(text: "")
-                    spacer(text: "")
                     about(text: "1.) First Click Play to Start")
-                    about(text: "2.) Then Choose What Gamemode You Want ")
-                    about(text: " To Play.")
-                    about(text: "3.) Choose if You Like Category or Not")
-                    about(text: "4.) Click Checkmark If You Like The Picture")
-                    about(text: "Click X If You Dont Like The Picture")
+                    about(text: "2.) Choose Your Gamemode To Play.")
+                    about(text: "3.) Choose if You Like Category or Not.")
+                    about(text: "4.) Click Checkmark If You Like The Picture.")
+                    about(text: "5.) Click X If You Dont Like The Picture.")
                 }
                 .padding()
             }

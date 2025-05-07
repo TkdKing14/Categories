@@ -18,7 +18,7 @@ struct dogsView: View {
     @State private var greenButtonClickCount = 0
     @State private var redButtonClickCount = 0
 
-    // Computed property to show user preference message
+   
     var preferenceMessage: String {
         if greenButtonClickCount > redButtonClickCount {
             return "You like dogs 😃"
