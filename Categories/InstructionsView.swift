@@ -19,23 +19,27 @@ struct InstructionsView: View {
                             gradient: Gradient(colors: [.white, .clear]),
                             center: .center,
                             startRadius: 100,
-                            endRadius: 490
+                            endRadius: 415
                         )
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     )
                     .ignoresSafeArea()
-                
-                VStack  {
-                    
-                    about(text: " 1.) First Click Play to Start")
-                    Spacer()
-                    about(text: "2.) Then Choose What Gamemode You")
-                    about(text: "To Play.")
-                    Spacer()
-                    about(text: "3.) Start Playing")
+                VStack {
+                    Text("Instructions")
+                        .font(.custom("Marker Felt", size: 70))
                         .padding()
+                    spacer(text: "")
+                    spacer(text: "")
+                    spacer(text: "")
+                    spacer(text: "")
+                    about(text: "1.) First Click Play to Start")
+                    about(text: "2.) Then Choose What Gamemode You Want ")
+                    about(text: " To Play.")
+                    about(text: "3.) Choose if You Like Category or Not")
+                    about(text: "4.) Click Checkmark If You Like The Picture")
+                    about(text: "Click X If You Dont Like The Picture")
                 }
-                Spacer()
+                .padding()
             }
         }
     }
@@ -44,9 +48,26 @@ struct InstructionsView: View {
 #Preview {
     InstructionsView()
 }
+
 struct about: View {
     let text: String
     var body: some View {
-        Text(text).font(.custom("Marker Felt", size: 25))
+        Text(text)
+            .font(.custom("Marker Felt", size: 22))
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.white.opacity(0.8))
+                    .shadow(radius: 4)
+            )
+            .foregroundColor(.black)
+    }
+}
+struct spacer: View {
+    let text: String
+    var body: some View {
+        Text(text)
+            .font(.custom("Marker Felt", size: 22))
+            .padding()
     }
 }

@@ -25,7 +25,7 @@ struct PokemonView: View {
     @State private var redButtonClickCount = 0
     @State private var showingAlert = false
 
-    // Random Pokémon ID between 1 and 898 (Gen 1–8)
+
     func randomPokemonURL() -> URL {
         let randomID = Int.random(in: 1...898)
         guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(randomID)") else {
@@ -70,7 +70,6 @@ struct PokemonView: View {
             Text(pokemonName.capitalized)
                 .font(.title2)
                 .padding(.bottom)
-
             HStack(spacing: 80) {
                 VStack {
                     Button {
@@ -86,7 +85,6 @@ struct PokemonView: View {
                         .font(.title2)
                         .foregroundColor(.green)
                 }
-
                 VStack {
                     Button {
                         redButtonClickCount += 1

@@ -36,9 +36,7 @@ struct dogsView: View {
             Text("Dogs")
                 .font(.largeTitle)
                 .padding(.top)
-
             Spacer()
-
             if let imageUrl, let url = URL(string: imageUrl) {
                 AsyncImage(url: url) { phase in
                     switch phase {
@@ -59,10 +57,7 @@ struct dogsView: View {
             } else if isLoading {
                 ProgressView()
             }
-
             Spacer()
-
-            // Buttons with counters below each
             HStack(spacing: 80) {
                 VStack {
                     Button {
@@ -78,7 +73,6 @@ struct dogsView: View {
                         .font(.title2)
                         .foregroundColor(.green)
                 }
-
                 VStack {
                     Button {
                         fetchDogImage()
@@ -96,7 +90,6 @@ struct dogsView: View {
             }
             .padding(.bottom, 10)
 
-            // Preference message
             if !preferenceMessage.isEmpty {
                 Text(preferenceMessage)
                     .font(.headline)
