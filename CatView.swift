@@ -14,7 +14,6 @@ struct CatView: View {
     @State private var greenButtonClickCount = 0
     @State private var redButtonClickCount = 0
 
-    // Computed property to show user preference message
     var preferenceMessage: String {
         if greenButtonClickCount > redButtonClickCount {
             return "You like cats 😃"
@@ -28,71 +27,83 @@ struct CatView: View {
     }
 
     var body: some View {
-        VStack {
-            Text("Cats")
-                .font(.largeTitle)
-                .padding(.top)
+        ZStack {
+            // Background image
+            Image("catBackground")
+                .resizable()
+                .scaledToFill()
+                .blur(radius: 5)
+                .opacity(0.25)
+                .ignoresSafeArea()
 
-            List(photos, id: \.id) { photo in
-                VStack {
-                    AsyncImage(url: URL(string: photo.photourl)) { image in
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .cornerRadius(12)
-                            .padding(.vertical, 20)
-                    } placeholder: {
-                        ProgressView()
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .padding()
-                    }
-                }
-            }
-            .listStyle(PlainListStyle())
+            VStack {
+                Text("Cats")
+                    .font(.largeTitle)
+                    .padding(.top)
 
-            HStack(spacing: 80) {
-                VStack {
-                    Button {
-                        Task {
-                            await loadData()
+                List(photos, id: \.id) { photo in
+                    VStack {
+                        AsyncImage(url: URL(string: photo.photourl)) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .cornerRadius(12)
+                                .padding(.vertical, 20)
+                        } placeholder: {
+                            ProgressView()
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .padding()
                         }
-                        greenButtonClickCount += 1
-                        CategoryCounters.catGreenCount += 1
-                    } label: {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundStyle(.green)
-                            .font(.system(size: 75))
                     }
-                    Text("\(greenButtonClickCount)")
-                        .font(.title2)
-                        .foregroundColor(.green)
+                    .listRowBackground(Color.clear)
                 }
-                VStack {
-                    Button {
-                        Task {
-                            await loadData()
-                        }
-                        redButtonClickCount += 1
-                        CategoryCounters.catRedCount += 1
-                    } label: {
-                        Image(systemName: "x.circle.fill")
-                            .foregroundStyle(.red)
-                            .font(.system(size: 75))
-                    }
-                    Text("\(redButtonClickCount)")
-                        .font(.title2)
-                        .foregroundColor(.red)
-                }
-            }
-            .padding(.bottom, 10)
+                .listStyle(PlainListStyle())
+                .background(Color.clear)
 
-            // Preference message based on click comparison
-            if !preferenceMessage.isEmpty {
-                Text(preferenceMessage)
-                    .font(.headline)
-                    .padding(.top, 10)
-                    .transition(.opacity)
+                HStack(spacing: 80) {
+                    VStack {
+                        Button {
+                            Task {
+                                await loadData()
+                            }
+                            greenButtonClickCount += 1
+                            CategoryCounters.catGreenCount += 1
+                        } label: {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundStyle(.green)
+                                .font(.system(size: 75))
+                        }
+                        Text("\(greenButtonClickCount)")
+                            .font(.title2)
+                            .foregroundColor(.green)
+                    }
+                    VStack {
+                        Button {
+                            Task {
+                                await loadData()
+                            }
+                            redButtonClickCount += 1
+                            CategoryCounters.catRedCount += 1
+                        } label: {
+                            Image(systemName: "x.circle.fill")
+                                .foregroundStyle(.red)
+                                .font(.system(size: 75))
+                        }
+                        Text("\(redButtonClickCount)")
+                            .font(.title2)
+                            .foregroundColor(.red)
+                    }
+                }
+                .padding(.bottom, 10)
+
+                if !preferenceMessage.isEmpty {
+                    Text(preferenceMessage)
+                        .font(.headline)
+                        .padding(.top, 10)
+                        .transition(.opacity)
+                }
             }
+            .padding()
         }
         .task {
             await loadData()

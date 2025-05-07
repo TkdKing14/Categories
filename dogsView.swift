@@ -18,7 +18,6 @@ struct dogsView: View {
     @State private var greenButtonClickCount = 0
     @State private var redButtonClickCount = 0
 
-   
     var preferenceMessage: String {
         if greenButtonClickCount > redButtonClickCount {
             return "You like dogs 😃"
@@ -32,72 +31,82 @@ struct dogsView: View {
     }
 
     var body: some View {
-        VStack {
-            Text("Dogs")
-                .font(.largeTitle)
-                .padding(.top)
-            Spacer()
-            if let imageUrl, let url = URL(string: imageUrl) {
-                AsyncImage(url: url) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .cornerRadius(12)
-                            .padding()
-                    case .failure:
-                        Text("Failed to load image")
-                    @unknown default:
-                        EmptyView()
-                    }
-                }
-            } else if isLoading {
-                ProgressView()
-            }
-            Spacer()
-            HStack(spacing: 80) {
-                VStack {
-                    Button {
-                        fetchDogImage()
-                        greenButtonClickCount += 1
-                        CategoryCounters.dogGreenCount += 1
-                    } label: {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundStyle(.green)
-                            .font(.system(size: 75))
-                    }
-                    Text("\(greenButtonClickCount)")
-                        .font(.title2)
-                        .foregroundColor(.green)
-                }
-                VStack {
-                    Button {
-                        fetchDogImage()
-                        redButtonClickCount += 1
-                        CategoryCounters.dogRedCount += 1
-                    } label: {
-                        Image(systemName: "x.circle.fill")
-                            .foregroundStyle(.red)
-                            .font(.system(size: 75))
-                    }
-                    Text("\(redButtonClickCount)")
-                        .font(.title2)
-                        .foregroundColor(.red)
-                }
-            }
-            .padding(.bottom, 10)
+        ZStack {
+            // Background image
+            Image("dogBackground")
+                .resizable()
+                .scaledToFill()
+                .blur(radius: 5)
+                .opacity(0.25)
+                .ignoresSafeArea()
 
-            if !preferenceMessage.isEmpty {
-                Text(preferenceMessage)
-                    .font(.headline)
-                    .padding(.top, 10)
-                    .transition(.opacity)
+            VStack {
+                Text("Dogs")
+                    .font(.largeTitle)
+                    .padding(.top)
+                Spacer()
+                if let imageUrl, let url = URL(string: imageUrl) {
+                    AsyncImage(url: url) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .cornerRadius(12)
+                                .padding()
+                        case .failure:
+                            Text("Failed to load image")
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
+                } else if isLoading {
+                    ProgressView()
+                }
+                Spacer()
+                HStack(spacing: 80) {
+                    VStack {
+                        Button {
+                            fetchDogImage()
+                            greenButtonClickCount += 1
+                            CategoryCounters.dogGreenCount += 1
+                        } label: {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundStyle(.green)
+                                .font(.system(size: 75))
+                        }
+                        Text("\(greenButtonClickCount)")
+                            .font(.title2)
+                            .foregroundColor(.green)
+                    }
+                    VStack {
+                        Button {
+                            fetchDogImage()
+                            redButtonClickCount += 1
+                            CategoryCounters.dogRedCount += 1
+                        } label: {
+                            Image(systemName: "x.circle.fill")
+                                .foregroundStyle(.red)
+                                .font(.system(size: 75))
+                        }
+                        Text("\(redButtonClickCount)")
+                            .font(.title2)
+                            .foregroundColor(.red)
+                    }
+                }
+                .padding(.bottom, 10)
+
+                if !preferenceMessage.isEmpty {
+                    Text(preferenceMessage)
+                        .font(.headline)
+                        .padding(.top, 10)
+                        .transition(.opacity)
+                }
             }
+            .padding()
         }
-        .padding()
         .onAppear(perform: fetchDogImage)
         .animation(.easeInOut, value: preferenceMessage)
     }
