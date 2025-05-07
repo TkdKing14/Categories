@@ -25,7 +25,6 @@ struct PokemonView: View {
     @State private var redButtonClickCount = 0
     @State private var showingAlert = false
 
-
     func randomPokemonURL() -> URL {
         let randomID = Int.random(in: 1...898)
         guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(randomID)") else {
@@ -47,69 +46,81 @@ struct PokemonView: View {
     }
 
     var body: some View {
-        VStack {
-            Text("Pokémon")
-                .font(.largeTitle)
-                .padding(.top)
+        ZStack {
+            // Background Image
+            Image("pokemonBackground")
+                .resizable()
+                .scaledToFill()
+                .blur(radius: 5)
+                .opacity(0.25)
+                .ignoresSafeArea()
 
-            if let imageUrl = pokemonImageURL, let url = URL(string: imageUrl) {
-                AsyncImage(url: url) { image in
-                    image.resizable()
-                        .scaledToFit()
-                        .frame(width: 200, height: 200)
-                        .padding()
-                } placeholder: {
+            VStack {
+                Text("Pokémon")
+                    .font(.largeTitle)
+                    .padding(.top)
+
+                if let imageUrl = pokemonImageURL, let url = URL(string: imageUrl) {
+                    AsyncImage(url: url) { image in
+                        image.resizable()
+                            .scaledToFit()
+                            .frame(width: 200, height: 200)
+                            .padding()
+                    } placeholder: {
+                        ProgressView()
+                            .frame(width: 200, height: 200)
+                    }
+                } else {
                     ProgressView()
                         .frame(width: 200, height: 200)
                 }
-            } else {
-                ProgressView()
-                    .frame(width: 200, height: 200)
-            }
 
-            Text(pokemonName.capitalized)
-                .font(.title2)
+                Text(pokemonName.capitalized)
+                    .font(.title2)
+                    .padding(.bottom)
+
+                HStack(spacing: 80) {
+                    VStack {
+                        Button {
+                            greenButtonClickCount += 1
+                            categoryCounters.pokemonGreenCount += 1
+                            fetchPokemon()
+                        } label: {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundStyle(.green)
+                                .font(.system(size: 75))
+                        }
+                        Text("\(greenButtonClickCount)")
+                            .font(.title2)
+                            .foregroundColor(.green)
+                    }
+
+                    VStack {
+                        Button {
+                            redButtonClickCount += 1
+                            categoryCounters.pokemonRedCount += 1
+                            fetchPokemon()
+                        } label: {
+                            Image(systemName: "x.circle.fill")
+                                .foregroundStyle(.red)
+                                .font(.system(size: 75))
+                        }
+                        Text("\(redButtonClickCount)")
+                            .font(.title2)
+                            .foregroundColor(.red)
+                    }
+                }
                 .padding(.bottom)
-            HStack(spacing: 80) {
-                VStack {
-                    Button {
-                        greenButtonClickCount += 1
-                        categoryCounters.pokemonGreenCount += 1
-                        fetchPokemon()
-                    } label: {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundStyle(.green)
-                            .font(.system(size: 75))
-                    }
-                    Text("\(greenButtonClickCount)")
-                        .font(.title2)
-                        .foregroundColor(.green)
-                }
-                VStack {
-                    Button {
-                        redButtonClickCount += 1
-                        categoryCounters.pokemonRedCount += 1
-                        fetchPokemon()
-                    } label: {
-                        Image(systemName: "x.circle.fill")
-                            .foregroundStyle(.red)
-                            .font(.system(size: 75))
-                    }
-                    Text("\(redButtonClickCount)")
-                        .font(.title2)
-                        .foregroundColor(.red)
-                }
-            }
-            .padding(.bottom)
 
-            if !preferenceMessage.isEmpty {
-                Text(preferenceMessage)
-                    .font(.headline)
-                    .padding(.top)
-                    .transition(.opacity)
+                if !preferenceMessage.isEmpty {
+                    Text(preferenceMessage)
+                        .font(.headline)
+                        .padding(.top)
+                        .transition(.opacity)
+                }
             }
+            .padding()
         }
-        .padding()
         .onAppear {
             fetchPokemon()
         }
