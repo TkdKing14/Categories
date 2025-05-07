@@ -26,6 +26,7 @@ struct FoodView: View {
     @State private var showingAlert = false
 
     let apiURL = "https://www.themealdb.com/api/json/v1/1/random.php"
+    
     var preferenceMessage: String {
         if greenButtonClickCount > redButtonClickCount {
             return "😃"
@@ -39,73 +40,83 @@ struct FoodView: View {
     }
 
     var body: some View {
-        VStack {
-            Text("Food!")
-                .font(.largeTitle)
-                .padding(.top)
+        ZStack {
+            // Background Image
+            Image("foodBackground")
+                .resizable()
+                .scaledToFill()
+                .blur(radius: 5)
+                .opacity(0.25)
+                .ignoresSafeArea()
 
-            if let mealImageUrl = mealImageUrl, let url = URL(string: mealImageUrl) {
-                AsyncImage(url: url) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 300, height: 200)
-                        .cornerRadius(12)
-                        .padding(.vertical)
-                } placeholder: {
+            VStack {
+                Text("Food!")
+                    .font(.largeTitle)
+                    .padding(.top)
+
+                if let mealImageUrl = mealImageUrl, let url = URL(string: mealImageUrl) {
+                    AsyncImage(url: url) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 300, height: 200)
+                            .cornerRadius(12)
+                            .padding(.vertical)
+                    } placeholder: {
+                        ProgressView()
+                            .frame(width: 300, height: 200)
+                    }
+                } else {
                     ProgressView()
                         .frame(width: 300, height: 200)
                 }
-            } else {
-                ProgressView()
-                    .frame(width: 300, height: 200)
-            }
 
-            Text(mealName)
-                .font(.title2)
+                Text(mealName)
+                    .font(.title2)
+                    .padding(.bottom)
+
+                HStack(spacing: 80) {
+                    VStack {
+                        Button {
+                            greenButtonClickCount += 1
+                            CategoryCounters.foodGreenCount += 1
+                            fetchMealData()
+                        } label: {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundStyle(.green)
+                                .font(.system(size: 75))
+                        }
+                        Text("\(greenButtonClickCount)")
+                            .font(.title2)
+                            .foregroundColor(.green)
+                    }
+
+                    VStack {
+                        Button {
+                            redButtonClickCount += 1
+                            CategoryCounters.foodRedCount += 1
+                            fetchMealData()
+                        } label: {
+                            Image(systemName: "x.circle.fill")
+                                .foregroundStyle(.red)
+                                .font(.system(size: 75))
+                        }
+                        Text("\(redButtonClickCount)")
+                            .font(.title2)
+                            .foregroundColor(.red)
+                    }
+                }
                 .padding(.bottom)
 
-            HStack(spacing: 80) {
-                VStack {
-                    Button {
-                        greenButtonClickCount += 1
-                        CategoryCounters.foodGreenCount += 1
-                        fetchMealData()
-                    } label: {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundStyle(.green)
-                            .font(.system(size: 75))
-                    }
-                    Text("\(greenButtonClickCount)")
-                        .font(.title2)
-                        .foregroundColor(.green)
-                }
-
-                VStack {
-                    Button {
-                        redButtonClickCount += 1
-                        CategoryCounters.foodRedCount += 1
-                        fetchMealData()
-                    } label: {
-                        Image(systemName: "x.circle.fill")
-                            .foregroundStyle(.red)
-                            .font(.system(size: 75))
-                    }
-                    Text("\(redButtonClickCount)")
-                        .font(.title2)
-                        .foregroundColor(.red)
+                if !preferenceMessage.isEmpty {
+                    Text(preferenceMessage)
+                        .font(.headline)
+                        .padding(.top)
+                        .transition(.opacity)
                 }
             }
-            .padding(.bottom)
-
-            if !preferenceMessage.isEmpty {
-                Text(preferenceMessage)
-                    .font(.headline)
-                    .padding(.top)
-                    .transition(.opacity)
-            }
+            .padding()
         }
-        .padding()
         .onAppear {
             fetchMealData()
         }
