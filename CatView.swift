@@ -67,7 +67,6 @@ struct CatView: View {
                         .font(.title2)
                         .foregroundColor(.green)
                 }
-
                 VStack {
                     Button {
                         Task {

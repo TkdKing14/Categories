@@ -17,40 +17,62 @@ class categoryCounters: ObservableObject {
     @Published var foodRedCount: Int = 0
     @Published var pokemonGreenCount: Int = 0
     @Published var pokemonRedCount: Int = 0
-
 }
+
 let CategoryCounters = categoryCounters()
+
 struct CategoriesView: View {
     @ObservedObject var CategoryCounters: categoryCounters
     let categories: [String] = categoriesList
     
     var body: some View {
         NavigationView {
-            VStack {
-                List(categories, id: \.self) { category in
-                    NavigationLink(destination: destinationView(for: category)) {
-                        HStack {
-                            categoryIcon(for: category)
-                            Text(category)
-                        }
-                        .padding(.vertical, 5)
-                    }
-                }
-                .listStyle(PlainListStyle())
+            ZStack {
+                // Background Image
+                Image("contentbackground")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+                    .opacity(0.2)
                 
-                // Displaying the counter below the list
-                Text("Lifetime Score (👍 to 👎)")
-                    .bold()
-                    .font(.headline)
-                    .underline(true, color: .gray)
-                Text("Food Score: \(CategoryCounters.foodGreenCount) to \(CategoryCounters.foodRedCount)")
-                    .padding()
-                Text("Cat Score: \(CategoryCounters.catGreenCount) to \(CategoryCounters.catRedCount)")
-                    .padding()
-                Text("Dog Score: \(CategoryCounters.dogGreenCount) to \(CategoryCounters.dogRedCount)")
-                    .padding()
-                Text("Pokemon Score: \(CategoryCounters.pokemonGreenCount) to \(CategoryCounters.pokemonRedCount)")
-                    .padding()
+                // Scrollable Content
+                ScrollView {
+                    VStack(spacing: 20) {
+                        // Category List
+                        ForEach(categories, id: \.self) { category in
+                            NavigationLink(destination: destinationView(for: category)) {
+                                HStack {
+                                    categoryIcon(for: category)
+                                    Text(category)
+                                        .font(.headline)
+                                }
+                                .padding()
+                                .background(Color.white.opacity(0.7))
+                                .cornerRadius(10)
+                                .shadow(radius: 2)
+                                .padding(.horizontal)
+                            }
+                        }
+
+                        // Score Section
+                        VStack(spacing: 17.5) {
+                            Text("Lifetime Score (👍 to 👎)")
+                                .bold()
+                                .font(.headline)
+                                .underline(true, color: .gray)
+
+                            Text("Food Score: \(CategoryCounters.foodGreenCount) to \(CategoryCounters.foodRedCount)")
+                            Text("Cat Score: \(CategoryCounters.catGreenCount) to \(CategoryCounters.catRedCount)")
+                            Text("Dog Score: \(CategoryCounters.dogGreenCount) to \(CategoryCounters.dogRedCount)")
+                            Text("Pokemon Score: \(CategoryCounters.pokemonGreenCount) to \(CategoryCounters.pokemonRedCount)")
+                        }
+                        .padding()
+                        .background(Color.white.opacity(0.7))
+                        .cornerRadius(12)
+                        .padding(.horizontal)
+                    }
+                    .padding(.top)
+                }
             }
             .navigationTitle("Categories")
         }
@@ -60,39 +82,34 @@ struct CategoriesView: View {
     func destinationView(for category: String) -> some View {
         if category == "Cats" {
             CatView(CategoryCounters: CategoryCounters)
-        }
-        else if category == "Dogs" {
+        } else if category == "Dogs" {
             dogsView(CategoryCounters: CategoryCounters)
-        }
-        else if category == "Food" {
+        } else if category == "Food" {
             FoodView(CategoryCounters: CategoryCounters)
-        }
-        else if category == "Pokemon" {
+        } else if category == "Pokemon" {
             PokemonView(categoryCounters: CategoryCounters)
         }
     }
+
     func categoryIcon(for category: String) -> some View {
         let iconName: String
         let iconColor: Color
         switch category {
         case "Cats":
             iconName = "cat.fill"
-            iconColor = Color.green
-//        case "Months":
-//            iconName = "calendar"
-//            iconColor = Color.green
+            iconColor = .green
         case "Food":
             iconName = "fork.knife"
-            iconColor = Color.red
+            iconColor = .red
         case "Dogs":
             iconName = "dog.fill"
-            iconColor = Color.blue
+            iconColor = .blue
         case "Pokemon":
             iconName = "bolt.fill"
-            iconColor = Color.yellow
+            iconColor = .yellow
         default:
             iconName = "airplane"
-            iconColor = Color.blue
+            iconColor = .blue
         }
         return Image(systemName: iconName)
             .padding(10)
@@ -101,6 +118,8 @@ struct CategoriesView: View {
             .clipShape(Circle())
     }
 }
+
+
 #Preview {
     CategoriesView(CategoryCounters: CategoryCounters)
 }
