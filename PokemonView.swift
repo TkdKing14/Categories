@@ -68,7 +68,7 @@ struct PokemonView: View {
                             .frame(width: 200, height: 200) //where it loaded
                             .padding() //spaceholder
                     } placeholder: {
-                        ProgressView() //view that loads while pokemon is being generated
+                        ProgressView()  // Show a loading spinner
                             .frame(width: 200, height: 200) //where it loaded
                     }
                 } else {
@@ -88,7 +88,7 @@ struct PokemonView: View {
                             categoryCounters.pokemonGreenCount += 1 //adds to variable to show +1 in life time score
                             fetchPokemon() //makes the pokemon actully spawn in
                         } label: {
-                            Image(systemName: "checkmark.circle.fill") //the buttins system name so it is actully a checkmark
+                            Image(systemName: "checkmark.circle.fill") //the buttons system name so it is actully a checkmark
                                 .foregroundStyle(.green) //color
                                 .font(.system(size: 75)) //size
                         }
