@@ -13,7 +13,7 @@ struct CatView: View {
     @State private var showingAlert = false
     @State private var greenButtonClickCount = 0
     @State private var redButtonClickCount = 0
-
+//displays text bases on the number of times each buttom was clicked
     var preferenceMessage: String {
         if greenButtonClickCount > redButtonClickCount {
             return "You like cats 😃"
@@ -40,7 +40,7 @@ struct CatView: View {
                 Text("Cats")
                     .font(.largeTitle)
                     .padding(.top)
-
+//gives a scrollable list of the following images that were generated. the list is not visible as only one picture is generated
                 List(photos, id: \.id) { photo in
                     VStack {
                         AsyncImage(url: URL(string: photo.photourl)) { image in
@@ -61,6 +61,7 @@ struct CatView: View {
                 .background(Color.clear)
 
                 HStack(spacing: 80) {
+                    //buttons that are displayed can be clicked based on if you like the image or not
                     VStack {
                         Button {
                             Task {
@@ -95,7 +96,7 @@ struct CatView: View {
                     }
                 }
                 .padding(.bottom, 10)
-
+//this code displays text based on what the user has selected
                 if !preferenceMessage.isEmpty {
                     Text(preferenceMessage)
                         .font(.headline)
@@ -117,7 +118,7 @@ struct CatView: View {
         }
         .animation(.easeInOut, value: preferenceMessage)
     }
-
+//gets the cat image from the api and displays it on the screen.
     func loadData() async {
         if let url = URL(string: "https://api.thecatapi.com/v1/images/search?limit=1") {
             do {
@@ -137,7 +138,7 @@ struct CatView: View {
 #Preview {
     CatView(CategoryCounters: categoryCounters())
 }
-
+//sets up the given requiremenes for the cat image to be generated
 struct Photo: Identifiable, Codable {
     var id = UUID()
     var api_id: String
