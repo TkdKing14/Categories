@@ -26,7 +26,7 @@ struct FoodView: View {
     @State private var showingAlert = false
 
     let apiURL = "https://www.themealdb.com/api/json/v1/1/random.php"
-    
+    //sets up the text based on the users choices
     var preferenceMessage: String {
         if greenButtonClickCount > redButtonClickCount {
             return "😃"
@@ -53,7 +53,7 @@ struct FoodView: View {
                 Text("Food!")
                     .font(.largeTitle)
                     .padding(.top)
-
+//displays the image that was grabbed from the api
                 if let mealImageUrl = mealImageUrl, let url = URL(string: mealImageUrl) {
                     AsyncImage(url: url) { image in
                         image
@@ -76,6 +76,7 @@ struct FoodView: View {
                     .padding(.bottom)
 
                 HStack(spacing: 80) {
+                    //makes the buttons that the user can play with
                     VStack {
                         Button {
                             greenButtonClickCount += 1
@@ -107,7 +108,7 @@ struct FoodView: View {
                     }
                 }
                 .padding(.bottom)
-
+//displays the text that was grabbed from the code above and displayes it below the buttons
                 if !preferenceMessage.isEmpty {
                     Text(preferenceMessage)
                         .font(.headline)
@@ -117,6 +118,7 @@ struct FoodView: View {
             }
             .padding()
         }
+        //when the text appears fetch meal data is called
         .onAppear {
             fetchMealData()
         }
@@ -144,12 +146,14 @@ struct FoodView: View {
                             self.mealName = meal.strMeal
                         }
                     }
+                    //shows if the code was able to display or not by showing an error message
                 } catch {
                     DispatchQueue.main.async {
                         showingAlert = true
                     }
                     print("Decoding error: \(error)")
                 }
+                //if any other thing was selected, it would result in the following code that shows a network error
             } else {
                 DispatchQueue.main.async {
                     showingAlert = true
@@ -160,7 +164,7 @@ struct FoodView: View {
         task.resume()
     }
 }
-
+//allows the code to be previwed
 struct FoodView_Previews: PreviewProvider {
     static var previews: some View {
         FoodView(CategoryCounters: categoryCounters())
