@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Combine
+import Combine // helps when transfering data
 
 class categoryCounters: ObservableObject {
     @Published var catGreenCount: Int = 0
@@ -18,9 +18,8 @@ class categoryCounters: ObservableObject {
     @Published var pokemonGreenCount: Int = 0
     @Published var pokemonRedCount: Int = 0
 }
-
+// sets up view for data transfer
 let CategoryCounters = categoryCounters()
-
 struct CategoriesView: View {
     @ObservedObject var CategoryCounters: categoryCounters
     let categories: [String] = categoriesList
@@ -53,8 +52,7 @@ struct CategoriesView: View {
                                 .padding(.horizontal)
                             }
                         }
-
-                        // Score Section
+                        // Score Section that displayes the all time score. (The in view numbers will be reset to zero if the view is left. the ifetiem scire will still be accumulated.)
                         VStack(spacing: 17.5) {
                             Text("Lifetime Score (👍 to 👎)")
                                 .bold()
@@ -77,8 +75,8 @@ struct CategoriesView: View {
             .navigationTitle("Categories")
         }
     }
-
-    @ViewBuilder
+// takes you to trhe specific view and destination based on the text and icon
+    @ViewBuilder   // allows each view to be refereced while still remaining in one
     func destinationView(for category: String) -> some View {
         if category == "Cats" {
             CatView(CategoryCounters: CategoryCounters)
@@ -90,7 +88,7 @@ struct CategoriesView: View {
             PokemonView(categoryCounters: CategoryCounters)
         }
     }
-
+//the following code sets up how each icon looks depending on the gamemode. the let iconName and Color allow each variable to be changed induvidually
     func categoryIcon(for category: String) -> some View {
         let iconName: String
         let iconColor: Color

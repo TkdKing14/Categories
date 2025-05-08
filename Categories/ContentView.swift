@@ -31,7 +31,7 @@ struct ContentView: View {
                     Spacer()
                     NavigationLink(destination: CategoriesView(CategoryCounters: CategoryCounters)) {
                         Text("Play")
-
+                        
                             .font(Font.custom("Marker Felt", size: 53))
                             .foregroundColor(.black)
                     }
