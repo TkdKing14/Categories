@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A9F77C142DBA8A7D003735C7 /* dogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F77C132DBA8A7D003735C7 /* dogsView.swift */; };
-		A9F77C162DBBD35A003735C7 /* template.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F77C152DBBD35A003735C7 /* template.swift */; };
 		DFF108782DB68D7F0098C9E9 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF108772DB68D7F0098C9E9 /* Categories.swift */; };
 		DFF1087A2DB691AF0098C9E9 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF108792DB691AF0098C9E9 /* CategoriesView.swift */; };
 		DFF108E22DB9372E0098C9E9 /* CatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF108E12DB9372E0098C9E9 /* CatView.swift */; };
@@ -18,7 +17,6 @@
 
 /* Begin PBXFileReference section */
 		A9F77C132DBA8A7D003735C7 /* dogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dogsView.swift; sourceTree = "<group>"; };
-		A9F77C152DBBD35A003735C7 /* template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = template.swift; sourceTree = "<group>"; };
 		DF9C6C472D9C350000004347 /* Categories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Categories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFF108772DB68D7F0098C9E9 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		DFF108792DB691AF0098C9E9 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
@@ -55,7 +53,6 @@
 				DFF108772DB68D7F0098C9E9 /* Categories.swift */,
 				DFF108792DB691AF0098C9E9 /* CategoriesView.swift */,
 				A9F77C132DBA8A7D003735C7 /* dogsView.swift */,
-				A9F77C152DBBD35A003735C7 /* template.swift */,
 				DF9C6C492D9C350000004347 /* Categories */,
 				DF9C6C482D9C350000004347 /* Products */,
 			);
@@ -146,7 +143,6 @@
 				DFF119EB2DC269D000E86435 /* FoodView.swift in Sources */,
 				DFF108E22DB9372E0098C9E9 /* CatView.swift in Sources */,
 				DFF108782DB68D7F0098C9E9 /* Categories.swift in Sources */,
-				A9F77C162DBBD35A003735C7 /* template.swift in Sources */,
 				A9F77C142DBA8A7D003735C7 /* dogsView.swift in Sources */,
 				DFF11A1B2DC50EDA00E86435 /* PokemonView.swift in Sources */,
 				DFF1087A2DB691AF0098C9E9 /* CategoriesView.swift in Sources */,
