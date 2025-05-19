@@ -25,7 +25,6 @@ struct CategoriesView: View {
     let categories: [String] = categoriesList
     
     var body: some View {
-        NavigationView {
             ZStack {
                 // Background Image
                 Image("contentbackground")
@@ -114,7 +113,6 @@ struct CategoriesView: View {
             .background(iconColor)
             .foregroundColor(.white)
             .clipShape(Circle())
-    }
 }
 
 
